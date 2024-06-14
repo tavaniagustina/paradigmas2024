@@ -86,5 +86,5 @@ mejoraSustentablementeElPeso unaActividad unAnimal = (peso . unaActividad) unAni
 tresAnimalesConNombreFalopa :: [Animal] -> [Animal]
 tresAnimalesConNombreFalopa = take 3 . filter nombreFalopa
  
--- Seria posible obtener un valor si se encuentran tres animales que tengan un nombre falopa, ya que haskell trabaja con 
+-- Seria posible obtener un valor (converge) si se encuentran tres animales que tengan un nombre falopa, ya que haskell trabaja con 
 -- lazy evaluation, en cambio si en la lista no encuentra tres valores que cumplan con lo pedido la funcion va a diverger y no va retornar ningun valor.
