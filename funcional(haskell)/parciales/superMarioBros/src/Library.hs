@@ -1,7 +1,6 @@
 module Library where
 import PdePreludat
 import Data.Char (isUpper)
-import Data.Foldable (maximumBy)
 
 -- 1)
 
@@ -122,21 +121,21 @@ empleadoMasAdinerado = empleadoMas dinero
 empleadoMasInvertidor :: JornadaDeTrabajo -> [Plomero] -> Plomero
 empleadoMasInvertidor = empleadoMas (sum . map precio . herramientas)
 
--- empleadoMas :: Ord b => (Plomero -> b) -> JornadaDeTrabajo -> [Plomero] -> Plomero
--- empleadoMas criterio unaJornada = maximumBy (criterio . diaDeTrabajo unaJornada) 
-
--- maximumBy :: Ord b => (a -> b) -> [a] -> abs
--- maximumBy = foldl1 . maxBy 
-
--- maxBy :: Ord b => (a -> b) -> a -> a -> a
--- maxBy f x y
---     | f x > f y  = x
---     | otherwise  = y
-
 empleadoMas :: Ord b => (Plomero -> b) -> JornadaDeTrabajo -> [Plomero] -> Plomero
-empleadoMas criterio jornadaDeTrabajo = foldr1 (maxSegun criterio jornadaDeTrabajo) 
+empleadoMas criterio unaJornada = maximumBy (criterio . diaDeTrabajo unaJornada)
 
-maxSegun :: Ord b => (Plomero -> b) -> JornadaDeTrabajo -> Plomero -> Plomero -> Plomero
-maxSegun criterio jornadaDeTrabajo p1 p2
-    | criterio (diaDeTrabajo jornadaDeTrabajo p1) >= criterio (diaDeTrabajo jornadaDeTrabajo p2) = p1
-    | otherwise = p2
+maximumBy :: Ord b => (a -> b) -> [a] -> a
+maximumBy funcion = foldl1 (maxBy funcion)
+
+maxBy :: Ord b => (a -> b) -> a -> a -> a
+maxBy f x y
+    | f x > f y  = x
+    | otherwise  = y
+
+-- empleadoMas :: Ord b => (Plomero -> b) -> JornadaDeTrabajo -> [Plomero] -> Plomero
+-- empleadoMas criterio jornadaDeTrabajo = foldr1 (maxSegun criterio jornadaDeTrabajo) 
+
+-- maxSegun :: Ord b => (Plomero -> b) -> JornadaDeTrabajo -> Plomero -> Plomero -> Plomero
+-- maxSegun criterio jornadaDeTrabajo p1 p2
+--     | criterio (diaDeTrabajo jornadaDeTrabajo p1) >= criterio (diaDeTrabajo jornadaDeTrabajo p2) = p1
+--     | otherwise = p2
