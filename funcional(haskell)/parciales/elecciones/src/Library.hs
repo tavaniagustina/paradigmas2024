@@ -1,6 +1,5 @@
 module Library where
 import PdePreludat
-import GHC.Num (Num)
 
 -- 1)
 
@@ -29,27 +28,25 @@ manuel = Persona "manuel" 60000 5 False "economico"
 victor :: Persona
 victor = Persona "victor" 513400 5 True "combinado"
 
-type Criterio = Persona -> Persona
+type Criterio = Persona -> Bool
 
 conformista :: Criterio
-conformista persona = persona
+conformista persona = True
 
 esperanzado :: Bool -> Criterio
-esperanzado tieneEsperanza persona = modificarEsperanza tieneEsperanza persona{
-    felicidad = 50
-}
+esperanzado valor persona = ((|| (> 50) (felicidad persona)) . tieneEsperanza) (persona {tieneEsperanza = valor})
 
 modificarEsperanza :: Bool -> Persona -> Persona
 modificarEsperanza tieneEsperanza persona = persona {tieneEsperanza = tieneEsperanza}
 
 economico :: Number -> Criterio
-economico = modificarDeudaConValorMinimo
+economico valor = (< valor) . deuda
 
 modificarDeudaConValorMinimo :: Number -> Persona -> Persona
 modificarDeudaConValorMinimo valor persona = persona {deuda = min valor (deuda persona)}
 
 combinado :: Criterio
-combinado = esperanzado True . economico 500
+combinado persona = esperanzado True persona || economico 500 persona
 
 -- 2)
 
@@ -75,16 +72,16 @@ yrigoyen persona = modificarDeuda (- (deuda persona / 2)) persona -- Disminuye d
 modificarDeuda :: Number -> Persona -> Persona
 modificarDeuda valor persona = persona {deuda = deuda persona + valor}
 
-alende :: Candidato
-alende persona = esperanzado True persona{
-    felicidad = felicidad persona + 10
-}
+-- alende :: Candidato
+-- alende persona = esperanzado True persona{
+--     felicidad = felicidad persona + 10
+-- }
 
-alsogaray :: Candidato
-alsogaray = esperanzado False . modificarDeuda 100 -- Aumenta deuda
+-- alsogaray :: Candidato
+-- alsogaray persona = esperanzado False persona . modificarDeuda 100 persona -- Aumenta deuda
 
-martinezRaymonda :: Candidato
-martinezRaymonda = yrigoyen . alende
+-- martinezRaymonda :: Candidato
+-- martinezRaymonda = yrigoyen . alende
 
 -- 4)
 

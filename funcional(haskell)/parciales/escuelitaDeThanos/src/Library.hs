@@ -75,6 +75,9 @@ gemaLoca gema = gema . gema
 
 -- 4)
 
+guanteleteDeGoma :: Guantelete
+guanteleteDeGoma = Guantelete "Goma" [tiempo, alma "usar Mjolnir", gemaLoca (alma "propagacion en haskell")]
+
 -- 5)
 
 utilizar :: [Gema] -> Personaje -> Personaje
@@ -86,9 +89,44 @@ gemaMasPoderosa :: Guantelete -> Personaje -> Gema
 gemaMasPoderosa guantelete = gemaMasPoderosaDe (gemas guantelete)   
 
 gemaMasPoderosaDe :: [Gema] -> Personaje -> Gema
-gemaMasPoderosaDe [gema] _ =  gema
+gemaMasPoderosaDe [gema] _ = gema
 gemaMasPoderosaDe (gema1 : gema2 : gemas) personaje 
     | (energia . gema1) personaje < (energia . gema2) personaje = gemaMasPoderosaDe (gema1 : gemas) personaje
-    | otherwise      = gemaMasPoderosaDe (gema2 : gemas) personaje
+    | otherwise                                                 = gemaMasPoderosaDe (gema2 : gemas) personaje
 
 -- 7)
+
+infinitasGemas :: Gema -> [Gema]
+infinitasGemas gema = gema : infinitasGemas gema
+
+guanteleteDeLocos :: Guantelete
+guanteleteDeLocos = Guantelete "vesconite" (infinitasGemas tiempo)
+
+usoLasTresPrimerasGemas :: Guantelete -> Personaje -> Personaje
+usoLasTresPrimerasGemas = utilizar . take 3. gemas
+
+punisher :: Personaje
+punisher = Personaje {
+    edad = 30,
+    energia = 100, 
+    habilidades = ["Castiga"],
+    nombre = "Frank Castle",
+    planetaDondeVive = "Tierra"
+}
+
+-- gemaMasPoderosa punisher guanteleteDeLocos
+-- Diverge porque va a querer mostrar la lista infinita. No hay una instancia Show para una lista infinita.
+
+-- usoLasTresPrimerasGemas guanteleteDeLocos punisher
+-- Haskell trabaja con lazy evaluation, evalua lo que necesita en el momento que lo necesita. En este caso solo 
+-- le interesan 3 gemas de la lista. Cuando las obtenga, va a dejar de evaluar, por lo tanto esta funcion se 
+-- puede ejecutar.
+
+-- > usoLasTresPrimerasGemas guanteleteDeLocos punisher 
+-- Personaje
+--     { edad = 18
+--     , energia = -50
+--     , habilidades = [ "Castiga" ]
+--     , nombre = "Frank Castle"
+--     , planeta = "Tierra"
+--     }
