@@ -1,0 +1,13 @@
+Cómo trabajar en el entorno
+Podés levantar Prolog por afuera del Visual Studio Code o bien abrir una terminal y escribir
+
+swipl nombreDelArchivo.pl  // por ejemplo, Solucion03.pl
+Esto levantará el archivo y ejecutará los tests, que también podés correr haciendo
+
+? run_tests.  % siempre es importante el punto final
+Para salir de Prolog
+
+? halt.
+Y cuando hagas cambios en Visual Studio Code, para refrescar los tests debés correr
+
+? make.
