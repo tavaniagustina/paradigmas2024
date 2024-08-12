@@ -11,3 +11,5 @@ Para salir de Prolog
 Y cuando hagas cambios en Visual Studio Code, para refrescar los tests debés correr
 
 ? make.
+
+el distinct no repite los individuos q satisfacen la consulta
