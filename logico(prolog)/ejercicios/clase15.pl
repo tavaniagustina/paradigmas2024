@@ -43,8 +43,8 @@ jugoVarios(Jugador) :-
 jugoVariosYGrandes(Jugador) :-
     futbolista(Jugador),
     findall(Equipo, (jugo(Jugador, Equipo), equipoGrande(Equipo)), Equipos), 
-        length(Equipos, Cantidad),
-        Cantidad > 2.
+    length(Equipos, Cantidad),
+    Cantidad > 2.
 
 % --------------------------------------------------------------------------------------------------------------------------------------------------------
 
