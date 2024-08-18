@@ -22,3 +22,5 @@ Y cuando hagas cambios en Visual Studio Code, para refrescar los tests debés co
 - aggregate_all/3 -> resuelve algo q tiene findall + otra cosa.
   	aggregate_all(Template, Consulta, Resultado).
     Template puede ser: max, min, sum, counr, set, bag.
+    
+PREGUNTA: cual es la diferencia cuando una consulta termina en false y sin false?
