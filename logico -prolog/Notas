@@ -24,3 +24,9 @@ Y cuando hagas cambios en Visual Studio Code, para refrescar los tests debés co
     Template puede ser: max, min, sum, counr, set, bag.
     
 PREGUNTA: cual es la diferencia cuando una consulta termina en false y sin false?
+
+esNoticiaDeFarandula(Titulo) :-
+  distinct((Titulo),
+      (noticia(_, articulo(Titulo, PersonajeInvolucrado), _),
+      personaje(PersonajeInvolucrado, deFarandula, _))
+  ).
