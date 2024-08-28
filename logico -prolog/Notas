@@ -30,3 +30,12 @@ esNoticiaDeFarandula(Titulo) :-
       (noticia(_, articulo(Titulo, PersonajeInvolucrado), _),
       personaje(PersonajeInvolucrado, deFarandula, _))
   ).
+
+% Por principio de universo cerrado -> todo lo que se presume falso no se escribe  
+
+asadoFlojito2(FechaAsado) :-
+    fecha(FechaAsado),
+    aggregate_all(sum(Calorias), (asado(FechaAsado, Comida), calorias(Comida, Calorias)), TotalCalorias),
+    TotalCalorias < 400.
+
+list_to_set(JugadoresPosibles, JugadoresUnicos), % Elimina duplicados

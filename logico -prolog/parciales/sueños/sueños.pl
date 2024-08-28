@@ -22,7 +22,7 @@ quiere(macarena, cantante(10000)).
 esAmbiciosa(Persona) :-
     persona(Persona),
     findall(Dificultad, dificultadSegunSuenio(Dificultad, Persona), Dificultades),
-    sum_list(Dificultades, DificultadTotal),
+    sum_list(Dificultades, DificultadTotal), % Tambien se puede usar un aggregate_all(sum(lo que quiero))
     DificultadTotal > 20.
 
 dificultadSegunSuenio(Dificultad, Persona) :-

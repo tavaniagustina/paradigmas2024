@@ -23,6 +23,9 @@ tomo(passarella, Sustancia) :-
     tomo(Jugador, Sustancia),
     not(tomo(maradona, Sustancia)).
 
+% tomo(passarella, Sustancia) :-  No anda!
+%     not(tomo(maradona, Sustancia)).
+
 % pedemonti toma todo lo que toma chamot y lo que toma Maradona 
 % el video de la resolucion dice que es un or logico, no entiendo por que.
 
@@ -37,17 +40,7 @@ tomo(passarella, Sustancia) :-
 tomo(pedemonti, Sustancia) :- tomo(maradona, Sustancia).
 tomo(pedemonti, Sustancia) :- tomo(chamot, Sustancia).
 
-% resolucion con y logico.
-
-% tomo(pedemonti, Sustancia) :-
-%     personasPosibles(Persona),
-%     tomo(Persona, Sustancia).
-
-% personasPosibles(chamot).
-% personasPosibles(maradona).
-
-% basualdo no toma coca cola 
-% por pricipio de universo cerrado todo lo q se considera falso no se escribe. 
+% basualdo no toma coca cola -> por pricipio de universo cerrado todo lo q se considera falso no se escribe. 
 
 % relaciona la máxima cantidad de un producto que 1 jugador puede ingerir  
 maximo(cocacola, 3). 
@@ -125,8 +118,9 @@ nivelFalopez(omeprazol, 5).
 
 cuantaFalopaTiene(Jugador, NivelDeAlteracion) :-
     jugador(Jugador),
-    findall(Nivel, falopaTomada(Jugador, Nivel), Niveles),
-    sum_list(Niveles, NivelDeAlteracion).
+    % findall(Nivel, falopaTomada(Jugador, Nivel), Niveles),
+    % sum_list(Niveles, NivelDeAlteracion).
+    aggregate_all(sum(Nivel), falopaTomada(Jugador, Nivel), NivelDeAlteracion).
 
 falopaTomada(Jugador, Nivel) :-
     tomo(Jugador, Sustancia),
@@ -140,7 +134,7 @@ cantidadFalopa(sustancia(Sustancia), Nivel) :-
 cantidadFalopa(compuesto(Sustancia), NivelTotal) :-
     composicion(Sustancia, ListaDeSustancias),
     findall(Nivel, (member(UnaSustancia, ListaDeSustancias), nivelFalopez(UnaSustancia, Nivel)), Niveles),
-    sum_list(Niveles, NivelTotal).
+    sum_list(Niveles, NivelTotal). % aca puedo hacer otro aggregate_all
 
 % 6)
 
@@ -151,7 +145,7 @@ medicoConProblemas(Medico) :-
 
 pacientesConflictivos(Medico, Cantidad) :-
     findall(Jugador, atiendeConflictivos(Jugador, Medico), Jugadores),      
-    length(Jugadores, Cantidad).
+    length(Jugadores, Cantidad). % aca puedo hacerlo con aggregate_all
 
 atiendeConflictivos(Jugador, Medico) :-
     atiende(Medico, Jugador),

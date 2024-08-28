@@ -14,12 +14,21 @@ destino(nico, marDelPlata).
 destino(vale, calafate).
 destino(vale, elBolson).
 
-destino(martu, Destino) :-
-    personasPosibles(Persona),
-    destino(Persona, Destino). 
+% esto estaria mal!
 
-personasPosibles(nico). 
-personasPosibles(alf). 
+% destino(martu, Destino) :-
+%     personasPosibles(Persona),
+%     destino(Persona, Destino). 
+
+% personasPosibles(nico). 
+% personasPosibles(alf). 
+
+% Martu va donde vaya nico y alf
+destino(martu, Destino) :-
+    destino(nico, Destino).
+
+destino(martu, Destino) :-
+    destino(alf, Destino).
 
 % Juan y Carlos como por ahora no se van de vacaiones, no se ponen en la base de conocimiento p
 % por el principio de universo cerrado -> todo lo que se presume falso no se escribe

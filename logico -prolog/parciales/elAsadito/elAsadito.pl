@@ -95,20 +95,16 @@ caloriasPorComida(Comida, 200) :-
 
 asadoFlojito(FechaAsado) :-
     fecha(FechaAsado),
-    findall(Caloria, caloriasDelAsado(FechaAsado, Caloria), Calorias),
-    sum_list(Calorias, CaloriasTotales),
-    CaloriasTotales < 400. 
+    % findall(Caloria, caloriasDelAsado(FechaAsado, Caloria), Calorias),
+    % sum_list(Calorias, CaloriasTotales),
+    % CaloriasTotales < 400.
+    aggregate_all(sum(Caloria), caloriasDelAsado(FechaAsado, Caloria), Calorias), 
+    Calorias < 400.
 
 caloriasDelAsado(FechaAsado, Caloria) :-
     fecha(FechaAsado),
     asado(FechaAsado, Comida), 
     calorias(Comida, Caloria).
-
-% Otra solucion
-asadoFlojito2(FechaAsado) :-
-    fecha(FechaAsado),
-    aggregate_all(sum(Calorias), (asado(FechaAsado, Comida), calorias(Comida, Calorias)), TotalCalorias),
-    TotalCalorias < 400.
 
 fecha(FechaAsado) :-
     distinct(FechaAsado, asado(FechaAsado, _)). 
@@ -140,9 +136,17 @@ seConocen(FechaAsado, ChismeDeQuien, ConocedorChisme) :-
 
 disfruto(Persona, FechaAsado) :-
     asistio(FechaAsado, Persona),
-    findall(Comida, comidasQueConsumio(Comida, Persona, FechaAsado), Comidas),
-    length(Comidas, Cantidad),
+    % findall(Comida, comidasQueConsumio(Comida, Persona, FechaAsado), Comidas),
+    % length(Comidas, Cantidad),
+    aggregate_all(count, comidasQueConsumio(_, Persona, FechaAsado), Cantidad),
     Cantidad >= 3.
+
+% solucion agus 
+% disfruto2(Persona, Fecha) :-
+%     amigo(Persona),
+%     fecha(Fecha),
+%     aggregate_all(count, (asistio(Fecha, Persona), asado(Fecha, Comida), leGusta(Persona, Comida)), Cantidad),
+%     Cantidad >= 3.
 
 comidasQueConsumio(Comida, Persona, FechaAsado) :-
     asado(FechaAsado, Comida),
