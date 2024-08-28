@@ -13,6 +13,7 @@ atiende(martu, miercoles, 23, 24).
 
 % 1)
 
+% vale atiende los mismos días y horarios que dodain y juanC.
 atiende(vale, Dia, HoraInicio, HoraFin) :-
     atiende(dodain, Dia, HoraInicio, HoraFin).
 
