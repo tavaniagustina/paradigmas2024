@@ -1,0 +1,29 @@
+method name() { } -> Tiene efecto de lado
+
+method name() = -> Retorna un valor
+
+Mensaje es lo que el objeto emisor le envía como orden al receptor. El emisor sólo pide que se resuelva.
+El receptor recibe el mensaje y se ejecuta un método (porción de código).
+
+La estrategia que utilizan los lenguajes para resolver dónde está el código de un método al enviar un mensaje recibe el nombre de method lookup. 
+
+:rr -> te recarga todos los mensajes que ya mandaste en esa sesion
+
+size() -> puede ser para tipo lista, collection, set, string
+
+var -> puedo cambiar el valor
+
+const -> referencia a un objeto fijo, no podes cambiar esa referencia, pero si podes cambiar los elementos que le pertenecen, por ej. una lista.
+
+Setter -> setteo un valor a una variable, no "retorna" nada, tiene efecto colateral, me cambia el valor del parametro -> {} (sin =)
+
+Getter ->
+
+var property -> genera el getter y el setter
+
+const property -> wollok automáticamente generará un getter para esa propiedad, pero no un setter, ya que su valor no lo puedo cambiar después de ser asignado.
+
+polimorfismo -> para q exista debe haber por lo menos tres objetos que entiendan el mismo mensaje 
+
+LISTA -> a la lista no hace falta ponerle (), sino que con materiasQueEstudia.size() ya es suficiente 
+
