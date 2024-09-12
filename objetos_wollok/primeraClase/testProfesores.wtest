@@ -1,0 +1,47 @@
+import profesores.*
+
+describe "Tests de nico"
+{
+    test "Costo de clase depende de longitud de materia"
+    {
+        // Con assert.that, si esta mal el test, simplemente dice que esta mal, no que podria arreglarse
+        // Con assert.equals, dice que resultado esperaria en caso de dar mal
+        assert.equals(500, nico.cuantoCobras("paradigmas"))
+    }
+
+    test "Le cae bien un alumno"
+    {
+        // assert.that(true)
+        const alumnoQueEstudiaFisica = lucas // Esto se pone solo para mejorar la expresividad, un alumno le cae bien, si este, estudia fisica
+        assert.that(nico.leCaeBien(alumnoQueEstudiaFisica))
+    }
+
+    test "No le cae bien un alumno"
+    {
+        // Objeto anonimo
+        const alumnoQueNoEstudiaFisica = object
+        {
+            method estudia(materia) = false
+        }
+
+        assert.notThat(nico.leCaeBien(alumnoQueNoEstudiaFisica))
+    }
+}
+
+describe "Tests de camila"
+{
+    test "Costo de clase con camila de buen humor"
+    {
+        // Act
+        camila.estaDeBuenHumor(true)
+        
+        // Assert
+        assert.equals(250, camila.cuantoCobras("historia"))
+    }
+
+    test "Costo de clase con camila de mal humor"
+    {
+        camila.estaDeBuenHumor(false)
+        assert.equals(700, camila.cuantoCobras("historia"))
+    }
+}
