@@ -1,0 +1,35 @@
+import remise.*
+describe "Test de Daniel"{
+
+    // method construirPersonaJoven(esJoven) = object{
+    //     method esJoven() = esJoven
+    // }
+
+    test "Puede llevar un pasajero" {
+        // const pasajeroJoven = object {
+        //     method esJoven() = true
+        // }
+
+        // const pasajeroJoven = self.construirPersonaJoven(true)
+        const pasajeroJoven = fixturePersona.construirPersonaJoven(true)
+
+        assert.that(daniel.puedeLlevar(pasajeroJoven))
+    }
+
+    test "No puede llevar un pasajero" {
+        // const pasajeroViejo = object {
+        //     method esJoven() = false
+        // }
+
+        // const pasajeroViejo = self.construirPersonaJoven(false)
+        const pasajeroViejo = fixturePersona.construirPersonaJoven(false)
+
+        assert.notThat(daniel.puedeLlevar(pasajeroViejo))
+    }
+}
+
+object fixturePersona{
+    method construirPersonaJoven(esJoven) = object{
+        method esJoven() = esJoven
+    }
+}

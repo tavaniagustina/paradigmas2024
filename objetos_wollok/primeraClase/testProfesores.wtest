@@ -21,7 +21,7 @@ describe "Tests de nico"
         // Objeto anonimo
         const alumnoQueNoEstudiaFisica = object
         {
-            method estudia(materia) = false
+            method estudiaMateria(materia) = false
         }
 
         assert.notThat(nico.leCaeBien(alumnoQueNoEstudiaFisica))

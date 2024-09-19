@@ -1,6 +1,6 @@
-method name() { } -> Tiene efecto de lado
+method name() { } -> Tiene efecto (effect) de lado -> method aumentar(aumento) { precio += aumento }
 
-method name() = -> Retorna un valor
+method name() = -> Retorna (return) un valor
 
 Mensaje es lo que el objeto emisor le envía como orden al receptor. El emisor sólo pide que se resuelva.
 El receptor recibe el mensaje y se ejecuta un método (porción de código).
@@ -27,3 +27,53 @@ polimorfismo -> para q exista debe haber por lo menos tres objetos que entiendan
 
 LISTA -> a la lista no hace falta ponerle (), sino que con materiasQueEstudia.size() ya es suficiente 
 
+Métodos: Pueden ser de acción (cambia una variable, hay una referencia a un objeto) o de pregunta (ej: 1.max(4) -> 4, no tiene efecto)
+
+Referencia: Constante (inmutable, siempre apunta al mismo objeto) o variable 
+
+Funciones anónimas (tipo lambda): El bloque no se evalúa en el momento, uno decide cuando ejecutarlo
+
+    > const bloque = { (-4).abs() } 
+    > bloque.apply() 
+    > 4
+
+    > const otroBloque = { numero => numero.abs() }
+    > otroBloque.apply(-1)
+    > 1
+
+    > const suma = { numero, otroNumero => numero + otroNumero }
+    > suma.apply(2, 3)  // la aridad del bloque es 2
+    > 5
+
+    > const sumaCurrificada = { numero => { otroNumero => numero + otroNumero } } 
+    > sumaCurrificada.apply(2).apply(3)  // cada bloque es de aridad 1
+    > 5
+    
+    > [1, 2, 3].filter( {numero => numero > 1} )
+    > [2, 3]
+
+Set: No tiene orden y no admite repetidos -> #{ }
+
+List: Tiene orden y admite repetidos -> [ ]
+
+    > lista.filter( {objeto => objeto.atributo() > 2})
+    > [x]
+
+    > lista.remove(y)
+    
+    > lista.add(y)
+
+    > lista.map( { objeto => objeto.atributo() })
+    > [3, 1]
+
+method lookup -> 
+
+clases ->
+
+polimorfismo -> como minimo necesito tres objetos para q ocurra. Uno lo manda y los otros dos lo tienen que q entender
+
+objetos -> tienen un comportamiento especifico, particular
+
+class -> comportamiento general para todos los objetos
+
+en el tp no usar herencia

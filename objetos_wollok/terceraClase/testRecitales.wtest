@@ -1,0 +1,18 @@
+import recitales.*
+
+describe "Tests de calopelusa" {
+  test "sale barato" {
+    calopelusa.calendario(calendario_stub)
+
+    assert.equals(5000, calopelusa.cuantoSale())
+  }
+}
+
+object calendario_stub{
+
+    var property _day = 1
+    var property _month = 1
+    var property _year = 2025
+    
+    method hoy() = new Date(day= _day, month= _month, year= _year )
+}
