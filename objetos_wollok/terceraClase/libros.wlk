@@ -5,7 +5,6 @@ class Libro{
   method esCaro() = precio > 150
 
   method aumentar(aumento) { precio += aumento }
-
 }
 
 const elPrincipito = new Libro(nombre = "El Principito") // este libro no es mas un objeto, es una referencia

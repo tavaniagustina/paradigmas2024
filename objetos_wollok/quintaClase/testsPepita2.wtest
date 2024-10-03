@@ -1,0 +1,176 @@
+import pepita2.*
+
+describe "Tests de Pepita" {
+
+	// son objetos que se usan en todos los tests
+	const campana = new Ciudad(consumo = 60)
+    const sanMartin = new Ciudad(consumo = 5)
+
+	// todos los tests parten con pepita teniendo como favoritas a estas dos ciudades
+	method initialize() { // Se invoca entre test y test 
+		pepita.agregarCiudad(campana)
+		pepita.agregarCiudad(sanMartin)
+	}
+
+	// hay tests que prueban cosas diferentes a partir de la misma situación, por lo que una opción es definir un método
+	
+    method viajeLoco() {
+        // dado que quilmes solo se utiliza aquí, es conveniente no definir la referencia en el describe
+        // sino que quede dentro del test. Además, dentro del mismo test podemos cómo se define o qué representa quilmes,
+        // lo que ayuda a entender mejor lo que estamos probando.
+		
+        const quilmes = new Ciudad(consumo = 1)
+        pepita.cumplirDeseo()
+		pepita.agregarCiudad(quilmes)
+		pepita.cumplirDeseo()
+		pepita.cumplirDeseo()
+	}
+
+	test "pepita comienza con 100 unidades de energía" {
+		assert.equals(100, pepita.energia()) // igual al anterior
+	}
+
+	test "pepita comienza siendo fuerte" {
+		assert.that(pepita.esFuerte()) // igual al anterior
+	}
+
+	test "pepita vuela a una ciudad con consumo mayor a cero y ese consumo le quita energia" {
+		pepita.volar(sanMartin) // Modificado, ahora con una ciudad
+		assert.equals(85, pepita.energia())
+	}
+
+	test "cuando pepita come su energia baja" {
+		pepita.comer(120) // igual al anterior
+		assert.equals(580, pepita.energia())
+	}
+
+	test "pepita vuela a una ciudad que no tiene consumo, la energía baja un valor constante" {
+		const ciudadSinConsumo = new Ciudad(consumo = 0)
+	
+		pepita.volar(ciudadSinConsumo) // Modificado, ahora con una ciudad
+		assert.equals(90, pepita.energia())
+	}
+
+	test "pepita come 0 gramos y la energía se mantiene" {
+		pepita.comer(0)
+		assert.equals(100, pepita.energia())
+	}
+
+	test "pepita vuela a una ciudad que le consume mucho, ya no es fuerte" {
+		pepita.volar(campana) // Modificado, ahora con una ciudad
+		assert.notThat(pepita.esFuerte())
+	}
+
+	test "pepita cumple su deseo, al volar queda con menos energia" {
+		pepita.cumplirDeseo() // Nuevo
+		assert.equals(85, pepita.energia())
+	}
+
+	test "pepita hace su viaje loco y queda con energia 4" {
+		self.viajeLoco() // Nuevo. Usa método del describe
+		assert.equals(4, pepita.energia())
+	}
+
+	test "al inicio pepita tiene a San Martin por ciudad favorita" {
+		assert.that(pepita.esFavorita(sanMartin)) // Nuevo
+	}
+
+	test "pepita cumple su deseo y cambia su ciudad favorita" {
+		pepita.cumplirDeseo() // Nuevo
+		assert.notThat(pepita.esFavorita(sanMartin))
+		assert.that(pepita.esFavorita(campana))
+	}
+
+	test "pepita hace su viaje loco y no tiene a campana como favorita" {
+		self.viajeLoco() // Nuevo. Usa método del describe
+		assert.notThat(pepita.esFavorita(campana))
+	}
+}
+
+// solución con dos describes dentro del mismo archivo, lo que permite que no se mezclen dos casos de prueba diferentes y 
+// simplifica el armado del juego de datos que algunos tests necesitan (así además no penalizamos a todos los tests para 
+// correr una inicialización si no se necesita)
+
+describe "Tests de Pepita - ciudades" {
+	const campana = new Ciudad(consumo = 60)
+	const sanMartin = new Ciudad(consumo = 5)
+
+	method initialize() {
+		pepita.agregarCiudad(campana)
+		pepita.agregarCiudad(sanMartin)
+	}
+
+    // un mensaje se encarga de hacer lo que yo quiero
+	method realizarViajeLoco() { // es para que estas funciones puedan ser entendidas solo llamando a un method -> produce efecto
+		const quilmes = new Ciudad(consumo = 1)
+		pepita.cumplirDeseo()
+		pepita.agregarCiudad(quilmes)
+		pepita.cumplirDeseo()
+		pepita.cumplirDeseo()
+	}
+
+	test "al inicio pepita tiene a San Martin por ciudad favorita" {
+		assert.that(pepita.esFavorita(sanMartin))
+	}
+
+	test "pepita cumple su deseo y cambia su ciudad favorita" {
+		pepita.cumplirDeseo()
+		assert.notThat(pepita.esFavorita(sanMartin))
+		assert.that(pepita.esFavorita(campana))
+	}
+
+	test "pepita hace su viaje loco y no tiene a campana como favorita" {
+		self.realizarViajeLoco()
+		assert.notThat(pepita.esFavorita(campana))
+	}
+
+	test "pepita cumple su deseo, al volar queda con menos energía" {
+		pepita.cumplirDeseo()
+		
+		assert.equals(85, pepita.energia())
+	}
+
+	test "pepita hace su viaje loco y queda con una cierta energía" {
+		self.realizarViajeLoco()
+		assert.equals(4, pepita.energia())
+	}
+}
+
+describe "Tests de Pepita - energía" {
+	test "pepita comienza con 100 unidades de energía" {
+		assert.equals(100, pepita.energia()) // igual al anterior
+	}
+
+	test "pepita comienza siendo fuerte" {
+		assert.that(pepita.esFuerte())
+	}
+
+	test "pepita vuela a una ciudad con consumo mayor a cero y ese consumo le quita energia" {
+		const sanMartin = new Ciudad(consumo = 5)
+		pepita.volar(sanMartin)
+		assert.equals(85, pepita.energia())
+	}
+
+	test "cuando pepita come su energia baja" {
+		pepita.comer(120)
+		assert.equals(580, pepita.energia())
+	}
+
+	test "pepita vuela a una ciudad que no tiene consumo, la energía baja un valor constante" {
+		const ciudadSinConsumo = new Ciudad(consumo = 0)
+	
+		pepita.volar(ciudadSinConsumo)
+		assert.equals(90, pepita.energia())
+	}
+
+	test "pepita come 0 gramos y la energía se mantiene" {
+		pepita.comer(0)
+		assert.equals(100, pepita.energia())
+	}
+
+	test "pepita vuela a una ciudad que le consume mucho, ya no es fuerte" {
+		const campana = new Ciudad(consumo = 60)
+		pepita.volar(campana)
+		assert.notThat(pepita.esFuerte())
+	}
+}

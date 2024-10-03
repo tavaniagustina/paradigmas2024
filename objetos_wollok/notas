@@ -1,4 +1,14 @@
+1. Métodos que tienen efectos de lado (usando llaves {})
+Cuando un método modifica el estado del objeto o realiza una acción, como cambiar una propiedad, ejecutar operaciones que no necesariamente devuelven un valor o interactuar con otros objetos, se utiliza la forma con llaves ({}).
+
 method name() { } -> Tiene efecto (effect) de lado -> method aumentar(aumento) { precio += aumento }
+
+2. Métodos que retornan un valor (usando =)
+Cuando un método solamente devuelve un valor basado en los atributos del objeto o en algún cálculo, sin modificar el estado del objeto ni tener efectos de lado, se utiliza la forma con =.
+
+method obtenerPrecioConImpuesto() = precio * 1.21  // Solo retorna un valor calculado
+
+//--------------------------
 
 method name() = -> Retorna (return) un valor
 
@@ -68,8 +78,6 @@ List: Tiene orden y admite repetidos -> [ ]
 
 method lookup -> 
 
-clases ->
-
 polimorfismo -> como minimo necesito tres objetos para q ocurra. Uno lo manda y los otros dos lo tienen que q entender
 
 objetos -> tienen un comportamiento especifico, particular
@@ -77,3 +85,6 @@ objetos -> tienen un comportamiento especifico, particular
 class -> comportamiento general para todos los objetos
 
 en el tp no usar herencia
+
+
+
