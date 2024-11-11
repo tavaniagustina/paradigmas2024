@@ -1,0 +1,37 @@
+La compañía Kendari Corporation INC. desea desarrollar para sus sucursales internacionales una herramienta de manejo de proyectos.
+
+Los proyectos se componen de tareas y las tareas de subtareas (las subtareas pueden tener a su vez subtareas). 
+Cada una de estas tareas y subtareas tiene un costo en tiempo y en dinero según se muestra en la figura siguiente:
+
+El costo de las tareas se calcula de acuerdo a la complejidad de la misma, a saber:
+
+Complejidad mínima: tiempo * $25
+Complejidad media: (tiempo * $25) + 5% de lo anterior
+Complejidad máxima:  
+    - si tiempo es menor o igual a 10 días --> tiempo * $25 + 7%
+    - si tiempo es mayor a 10 días --> (tiempo * $25) + 7% + $10 por cada día después del décimo
+
+Nota: Para calcular el costo de una tarea sólo se utiliza el tiempo específico de la misma. 
+Por ejemplo para calcular el costo de la tarea 2, el tiempo es a utilizar es 15.
+
+A su vez las tareas que tengan más de 3 subtareas asociadas tienen un costo extra por overhead del 4%.
+
+Por último hay un costo impositivo extra que dependerá de la reglamentación fiscal del país y algunos otros factores, lo importante 
+es que existe el impuesto A (3% del valor) y el impuesto B (5% del valor). 
+Hay tareas en donde aplican los dos impuestos, algunas que aplica sólo uno de ellos y otras que no se aplica ninguno.
+
+Se debe poder determinar el porcentaje de completitud de cada tarea. Las tareas que no posean subtareas sólo pueden estar completas o no (al 0% o al 100% taxativamente). En cambio, en las tareas que posean subtareas se calculará en base al promedio ponderado de las mismas.
+
+Nota: Los impuestos sólo se aplican sobre la tarea que los tiene, no sobre las subtareas.
+
+Otro punto importante para el sistema es poder calcular el atraso posible en una tarea. Este dato depende exclusivamente de la complejidad y el tiempo de la misma y se calcula de la siguiente forma:
+
+Tareas de complejidad mínima: 5 días.
+Tareas de complejidad media: 10% del tiempo de la tarea.
+Tareas de complejidad máxima: 20% del tiempo de la tarea + 8 días.
+
+Aplicar el diseño necesario que permita:
+Obtener el costo de una tarea
+Obtener el costo total de un proyecto
+Obtener los días máximos de atraso de un proyecto
+Saber o asignar el porcentaje de completitud de una tarea

@@ -82,7 +82,4 @@ object dani {
         }
         viajes.add(viaje)
     }
-
 }
-
-
