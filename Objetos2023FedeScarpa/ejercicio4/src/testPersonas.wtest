@@ -1,0 +1,6 @@
+import personas.*
+
+test "Dinero gastado por Juliana" {
+	juliana.llamar(9)
+	assert.equals(630, juliana.plataGastada())
+}

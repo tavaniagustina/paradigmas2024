@@ -148,7 +148,7 @@ class Familia {
 
 class Revolver {
 
-	var cantidadBalas
+	var property cantidadBalas
 
 	method esSutil() {
 		return cantidadBalas == 1

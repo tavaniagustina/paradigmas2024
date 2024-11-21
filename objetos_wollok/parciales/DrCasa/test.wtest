@@ -1,0 +1,92 @@
+import solucion.*
+
+describe "TESTS" 
+{  
+    const malaria500 = new EnfermedadInfecciosa(cantidadCelulasAmenazadas = 500)
+    const otitis = new EnfermedadInfecciosa(cantidadCelulasAmenazadas = 100)
+    const lupus = new EnfermedadInfecciosa(cantidadCelulasAmenazadas = 10000)
+    const malaria800 = new EnfermedadInfecciosa(cantidadCelulasAmenazadas = 800)
+
+    const logan = new Persona(temperatura = 36, cantidadDeCelulas = 3000000, enfermedades = [malaria500, otitis, lupus])
+    const frank = new Persona(temperatura = 36, cantidadDeCelulas = 3500000, enfermedades = [])
+    
+    const cameron = new Medico(temperatura = 36, cantidadDeCelulas = 3000000, enfermedades = [], dosis = 10)
+    const house = new JefeDeDepartamento(temperatura = 36, cantidadDeCelulas = 3000000, enfermedades = [], dosis = 10)
+    test "Frank contrajo malaria"
+    {
+        frank.contraerEnfermedad(malaria800)
+        assert.equals(frank.enfermedades(), [malaria800])
+    }
+
+    test "Se reproduce la malaria"
+    {
+        malaria500.reproducirse()
+        assert.equals(malaria500.cantidadCelulasAmenazadas(), 1000)
+    }
+    
+    test "Punto 1 - Se atenua la malaria en 100 celulas"
+    {
+        malaria500.atenuarse(100)
+        assert.equals(malaria500.cantidadCelulasAmenazadas(), 400)
+    }
+
+    test "Punto 1 - Se atenua el lupus en 500 celulas"
+    {
+        lupus.atenuarse(500)
+        assert.equals(lupus.cantidadCelulasAmenazadas(), 9500)
+    }
+
+    test "Punto 2 - Cameron atiende a Logan y lo cura de otitis"
+    {
+        cameron.atenderA(logan)
+        assert.notThat(logan.tiene(otitis))
+    }
+
+    test "Punto 2 - Cameron atiende a Logan y le atenua la malaria" 
+    {
+        cameron.atenderA(logan)
+        assert.equals(350, malaria500.cantidadCelulasAmenazadas())
+    }
+
+    test "Punto 2 - Cameron atiende a Logan y lo atenua el lupus" 
+    {
+        cameron.atenderA(logan)
+        assert.equals(9850, lupus.cantidadCelulasAmenazadas())
+    }
+
+    test "Punto 3 - House atiende a Logan y lo cura de la otitis" 
+    {
+        house.atenderA(logan)
+        assert.notThat(logan.tiene(otitis))
+    }
+
+    test "Punto 3 - House  atiende a Logan y lo atenua la malaria" 
+    {
+        house.atenderA(logan)
+        assert.equals(350, malaria500.cantidadCelulasAmenazadas())
+    }
+
+    test "Punto 3 - House atiende a Logan y lo atenua el lupus" 
+    {
+        house.atenderA(logan)
+        assert.equals(9850, lupus.cantidadCelulasAmenazadas())
+    }
+
+    test "Punto 4 - Cameron contrae malaria y se auto-atiende" 
+    {
+        cameron.contraerEnfermedad(malaria500)
+        assert.equals(350, malaria500.cantidadCelulasAmenazadas())
+    }
+
+    test "Punto 4 - House contrae malaria y se auto-atiende" {
+        house.contraerEnfermedad(malaria500)
+        assert.equals(350, malaria500.cantidadCelulasAmenazadas())
+    }
+
+    test "Punto 5 - House contrae la muerte" 
+    {
+        house.contraerEnfermedad(muerte)
+        house.vivirUnDia()
+        assert.equals(0, house.temperatura())
+    }
+}
