@@ -1,4 +1,3 @@
-
 // enfermedad -> cantidad de celulas amenazadas (segun el tipo de enfermedad)
     
     // infecciosa 

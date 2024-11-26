@@ -44,7 +44,7 @@ class Persona
         carrerasCompletadas.add(carrera)
     }
 
-    method quiereEstudiar(carrera) = self.suenios().contains(carrera)
+    method quiereEstudiar(carrera) = suenios.contains(carrera)
 
     method tieneHijos() = cantidadDeHijos > 0
 

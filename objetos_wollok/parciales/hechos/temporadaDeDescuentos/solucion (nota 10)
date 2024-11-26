@@ -26,23 +26,23 @@ object plataforma {
 		juegos.remove(juego)
 	}
 	
-	 ////////////////// PUNTO 2 //////////////////
-	 method aplicarDescuentoPorcentual(nuevoPorcentaje)
-	 {	
-	 	if (nuevoPorcentaje > 1)
-	 	{
-	 		throw new Exception(message = "No se puede aplicar un descuento del mas del 100%")
-	 	}
-	 	const precioJuegoMasCaro = self.juegoMasCaro().precio()
-	 	
-	 	const juegosADescontar = juegos.filter{j => j.superaPrecio( 0.75 * precioJuegoMasCaro)}
-	 	
-	 	const nuevoDescuento = new DescuentoDirecto(porcentaje = nuevoPorcentaje)
-	 	
-	 	juegosADescontar.forEach{j => self.modificarDescuento(j, nuevoDescuento)}
-	 }
+	////////////////// PUNTO 2 //////////////////
+	method aplicarDescuentoPorcentual(nuevoPorcentaje)
+	{	
+		if (nuevoPorcentaje > 1)
+		{
+			throw new Exception(message = "No se puede aplicar un descuento del mas del 100%")
+		}
+		const precioJuegoMasCaro = self.juegoMasCaro().precio()
+		
+		const juegosADescontar = juegos.filter{j => j.superaPrecio( 0.75 * precioJuegoMasCaro)}
+		
+		const nuevoDescuento = new DescuentoDirecto(porcentaje = nuevoPorcentaje)
+		
+		juegosADescontar.forEach{j => self.modificarDescuento(j, nuevoDescuento)}
+	}
 	 
-	 //////////////////// INTERNACIONALIZACIÓN ////////////////////
+	//////////////////// INTERNACIONALIZACIÓN ////////////////////
 	 
 	method juegoAptoParaMenoresEnPais(juego, pais)
 	{
@@ -226,6 +226,7 @@ class Critico {
 class Usuario inherits Critico{
 	// positiva o negativa
 	var property posicion
+
 	override method textoCritica() = posicion.textoUsuario()
 	override method daCriticaPositiva(juego) = posicion.esPositiva()
 }
@@ -233,6 +234,7 @@ class Usuario inherits Critico{
 class CriticoPago  inherits Critico{
 	const juegosQueLePagaron = []
 	const palabrasRandomDeCriticos = ["divertido", "aburrido", "feo", "juego", "robo"]
+	
 	//  Son positivos cuando el juego está en la lista de juegos que le pagaron.
 	override method daCriticaPositiva(juego)
 	{
