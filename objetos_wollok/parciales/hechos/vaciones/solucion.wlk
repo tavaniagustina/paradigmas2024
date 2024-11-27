@@ -87,13 +87,9 @@ class Persona
     var property presupuesto 
 
     // Esto tambien es para combinar varios criterios
-    method irseDeVacacionesA(lugar)
-    {
-        preferencias.any { preferencia => lugar.preferencia(lugar) }
-    }
+    method irseDeVacacionesA(lugar) = preferencias.any { preferencia => lugar.preferencia(lugar) }
 
     method puedePagar(montoAPagar) = presupuesto >= montoAPagar
-
 }
 
 class Tour
